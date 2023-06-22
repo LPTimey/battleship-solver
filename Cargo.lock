@@ -3,13 +3,13 @@
 version = 3
 
 [[package]]
+name = "battleship-solver"
+version = "0.1.0"
+
+[[package]]
 name = "calc"
 version = "0.1.0"
 
 [[package]]
 name = "gui"
-version = "0.1.0"
-
-[[package]]
-name = "run"
 version = "0.1.0"

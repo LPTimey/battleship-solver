@@ -1,5 +1,5 @@
 [package]
-name = "run"
+name = "battleship-solver"
 version = "0.1.0"
 edition = "2021"
 
