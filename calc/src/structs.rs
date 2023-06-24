@@ -361,15 +361,12 @@ impl BoardBuilder {
             whitespace,
         }
     }
-    pub fn build(&mut self) -> Result<Vec<Board>,Vec<BoardErrors>> {
-        todo!()
-    }
 
     pub fn set_ships(&mut self, ships: Vec<Ship>) -> &mut Self {
         self.ships = ships;
         self
     }
-    pub fn add_ship(&mut self, ship: Ship) -> &mut Self{
+    pub fn add_ship(&mut self, ship: Ship) -> &mut Self {
         self.ships.push(ship);
         self
     }
@@ -406,5 +403,11 @@ impl BoardBuilder {
 
     pub fn whitespace_mut(&mut self) -> &mut usize {
         &mut self.whitespace
+    }
+}
+
+impl BoardBuilder {
+    pub fn build(&mut self) -> Result<Vec<Board>, Vec<BoardErrors>> {
+        todo!()
     }
 }
