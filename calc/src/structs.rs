@@ -216,6 +216,40 @@ impl Ship {
         )?;
         Ok([norm, r180, r90, r270])
     }
+    pub fn turn_clock(&self) -> Self {
+        let Self { shape } = self;
+
+        Self::new(
+            shape
+                .clone()
+                .into_iter()
+                .map(|vec| vec.turn_clock())
+                .collect_vec(),
+        )
+        .unwrap()
+    }
+    pub fn turn_clock_mut(&mut self) {
+        self.shape
+            .iter_mut()
+            .for_each(|vec| *vec = vec.turn_clock());
+    }
+    pub fn turn_counter(&self) -> Self {
+        let Self { shape } = self;
+
+        Self::new(
+            shape
+                .clone()
+                .into_iter()
+                .map(|vec| vec.turn_counter())
+                .collect_vec(),
+        )
+        .unwrap()
+    }
+    pub fn turn_counter_mut(&mut self) {
+        self.shape
+            .iter_mut()
+            .for_each(|vec| *vec = vec.turn_counter());
+    }
     pub fn is_equivalent(&self, other: &Self) -> bool {
         let (Ship { shape }, Ship { shape: other }) = (self, other);
         if shape.len() != other.len() {
@@ -285,16 +319,22 @@ impl Board {
         });
         Vec2::new(max_x as isize, max_y as isize)
     }
-    pub fn get_grid(&self) -> Vec<Pos2>{
+    pub fn get_grid(&self) -> Vec<Pos2> {
         self.ships
-            .clone()
-            .into_iter()
-            .flat_map(|(pos, Ship { shape })| {
-                shape.into_iter().map(move |vec| pos + vec)
-            }).collect_vec()
+            .iter()
+            .flat_map(|(pos, Ship { shape })| shape.into_iter().map(move |vec| *pos + *vec))
+            .collect_vec()
     }
     pub fn get_completion(&self) -> f64 {
-        todo!()
+        let to_hit = self.get_grid();
+        let hit = self
+            .shots
+            .iter()
+            .filter(|pos| to_hit.contains(pos))
+            .unique()
+            .collect_vec();
+
+        to_hit.len() as f64 / hit.len() as f64
     }
 }
 
