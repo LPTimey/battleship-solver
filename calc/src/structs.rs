@@ -345,3 +345,66 @@ mod board_tests {
         assert!(true)
     }
 }
+
+#[derive(Debug, Default)]
+pub struct BoardBuilder {
+    ships: Vec<Ship>,
+    shape: Vec<Pos2>,
+    whitespace: usize,
+}
+
+impl BoardBuilder {
+    pub fn new(ships: Vec<Ship>, shape: Vec<Pos2>, whitespace: usize) -> Self {
+        Self {
+            ships,
+            shape,
+            whitespace,
+        }
+    }
+    pub fn build(&mut self) -> Result<Vec<Board>,Vec<BoardErrors>> {
+        todo!()
+    }
+
+    pub fn set_ships(&mut self, ships: Vec<Ship>) -> &mut Self {
+        self.ships = ships;
+        self
+    }
+    pub fn add_ship(&mut self, ship: Ship) -> &mut Self{
+        self.ships.push(ship);
+        self
+    }
+
+    pub fn set_shape(&mut self, shape: Vec<Pos2>) -> &mut Self {
+        self.shape = shape;
+        self
+    }
+
+    pub fn set_whitespace(&mut self, whitespace: usize) -> &mut Self {
+        self.whitespace = whitespace;
+        self
+    }
+
+    pub fn ships(&self) -> &[Ship] {
+        self.ships.as_ref()
+    }
+
+    pub fn shape(&self) -> &[Pos2] {
+        self.shape.as_ref()
+    }
+
+    pub fn whitespace(&self) -> usize {
+        self.whitespace
+    }
+
+    pub fn ships_mut(&mut self) -> &mut Vec<Ship> {
+        &mut self.ships
+    }
+
+    pub fn shape_mut(&mut self) -> &mut Vec<Pos2> {
+        &mut self.shape
+    }
+
+    pub fn whitespace_mut(&mut self) -> &mut usize {
+        &mut self.whitespace
+    }
+}
