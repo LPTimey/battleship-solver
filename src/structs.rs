@@ -1,5 +1,8 @@
 #![allow(dead_code)]
-use std::ops::{Add, Mul, Sub};
+use std::{
+    collections::HashMap,
+    ops::{Add, Mul, Sub},
+};
 
 use itertools::Itertools;
 use thiserror::Error;
@@ -46,6 +49,14 @@ mod pos2_tests {
 pub struct Vec2 {
     x: isize,
     y: isize,
+}
+impl From<Pos2> for Vec2 {
+    fn from(value: Pos2) -> Self {
+        Self {
+            x: value.x as isize,
+            y: value.y as isize,
+        }
+    }
 }
 impl Add for Vec2 {
     type Output = Self;
@@ -409,5 +420,24 @@ impl BoardBuilder {
 impl BoardBuilder {
     pub fn build(&mut self) -> Result<Vec<Board>, Vec<BoardErrors>> {
         todo!()
+    }
+}
+
+#[derive(Debug, Error)]
+pub enum HeatMapErrors {}
+
+#[derive(Debug, Clone)]
+pub struct HeatMap(HashMap<Pos2, f64>);
+
+impl TryFrom<Vec<Board>> for HeatMap {
+    type Error = HeatMapErrors;
+
+    fn try_from(value: Vec<Board>) -> Result<Self, Self::Error> {
+        todo!()
+    }
+}
+impl HeatMap {
+    pub fn size(&self) {
+        let test = self.0.keys().collect_vec();
     }
 }
